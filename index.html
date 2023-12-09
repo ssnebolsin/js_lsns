@@ -9,85 +9,49 @@
     
 </body>
 <script>
-    let userName = prompt('what is your name?')
-    let userLastName = prompt('what is you last name?')
-    let birthDate = +prompt('What is your date of birth, pls indicate only day without month and year?')
-    let birthMonth = +prompt('What is your month of birth?')
-    let birthYear = prompt('What is your year of birth?')
+ let userInput = confirm('Tell me three most important words')
+ let word
+ let wordFormat
+ let msgString = ''
 
-    // month and day concatenated as int
-    let birthDateMonthInt = birthMonth * 100 + birthDate
+ const WORDRE = /^[a-zA-Z]+$/;
 
-    // full birthdate in Date format
-    let birthFullDate = new Date(birthYear,birthMonth,birthDate)
+ if (userInput) {
+    for(i=0; i < 3; i++){
+        let wordno
+            if(i==0){
+                wordno = 'first'
+            }
+            else if(i==1){
+                wordno = 'second'
+            } 
+            else {
+                wordno = 'third'
+            }
 
-    // get difference between today and birthdate in miliseconds
-    let ageDifMs = Date.now() - birthFullDate; 
+        word = prompt('Tell me ' + wordno + ' word')
+        while(!word || word === null || !word.match(WORDRE)){
+            word = prompt('Tell me ' + wordno + ' word, it should not be empty and should not contain any numbers')
+        }
+        wordFormat = prompt('How do you want to format the ' + wordno + ' word ? - uppercase or lowercase or capitalize')
+        while(!wordFormat || wordFormat === null || !['uppercase', 'lowercase', 'capitalize'].includes(wordFormat) ){
+            wordFormat = prompt('Please enter uppercase or lowercase or capitalize for' + wordno + ' word')
+        }
+        if(wordFormat === 'uppercase'){
+            word = word.toLocaleUpperCase();
+        }
+        else if(wordFormat === 'lowercase'){
+            word = word.toLowerCase();
+        }
+        else if(wordFormat === 'capitalize'){
+            word = word.charAt(0).toUpperCase() + word.slice(1);
+        }
 
-    // miliseconds to Date
-    let ageDate = new Date(ageDifMs); 
+        msgString = msgString + word + ' ';
+    }
+    console.log(msgString.trim() + '!');
+ }
 
-    // diff from ageDate year and 1970
-    let age = Math.abs(ageDate.getUTCFullYear() - 1970); 
-
-    let zodiacName
-
-    if(birthDateMonthInt >= 120 && birthDateMonthInt <= 218){
-        zodiacName = 'Aquarius'
-    }
-    else if (birthDateMonthInt <= 320) {
-        zodiacName = 'Pisces'
-    }
-    else if (birthDateMonthInt <= 419) {
-        zodiacName = 'Aries'
-    }
-    else if (birthDateMonthInt <= 520) {
-        zodiacName = 'Taurus'
-    }
-    else if (birthDateMonthInt <= 620) {
-        zodiacName = 'Gemini'
-    }
-    else if (birthDateMonthInt <= 722) {
-        zodiacName = 'Cancer'
-    }
-    else if (birthDateMonthInt <= 822) {
-        zodiacName = 'Leo'
-    }
-    else if (birthDateMonthInt <= 922) {
-        zodiacName = 'Virgo'
-    }
-    else if (birthDateMonthInt <= 1022) {
-        zodiacName = 'Libra'
-    }
-    else if (birthDateMonthInt <= 1121) {
-        zodiacName = 'Scorpio'
-    }
-    else if (birthDateMonthInt <= 1221) {
-        zodiacName = 'Sagittarius'
-    }
-    else {'Capricorn'}
-
-    let ifLeapYear
-    
-    if (birthYear % 400 === 0) {
-        ifLeapYear = true
-    } 
-    else if (birthYear % 100 !== 0 && birthYear % 4 === 0 ) {
-        ifLeapYear = true
-    } 
-    else {
-        ifLeapYear = false
-    }
-
-    let displayMsg
-
-    if (ifLeapYear) {
-        displayMsg = 'User Bio: ' + userName + ' ' + userLastName + ', ' + age + ' роки (Leap year), ' + zodiacName
-    } else {
-        displayMsg = 'User Bio: ' + userName + ' ' + userLastName + ', ' + age + ' роки, ' + zodiacName
-    }
-    
-    alert(displayMsg)
 
 
 </script>
