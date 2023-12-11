@@ -14,8 +14,6 @@
  let wordFormat
  let msgString = ''
 
- const WORDRE = /^[a-zA-Z]+$/;
-
  if (userInput) {
     for(i=0; i < 3; i++){
         let wordno
@@ -30,12 +28,28 @@
             }
 
         word = prompt('Tell me ' + wordno + ' word')
-        while(!word || word === null || !word.match(WORDRE)){
+        
+
+        let wordContainsNumber
+        do{
+                 
+            while(!word || word === null){
             word = prompt('Tell me ' + wordno + ' word, it should not be empty and should not contain any numbers')
+            }
+            wordContainsNumber = false;
+            // check if a word contains any numbers
+            for(j=0; j < word.length; j++){
+                if(!isNaN(+word[j])){
+                    wordContainsNumber = true;
+                    word = prompt('Tell me ' + wordno + ' word, it should should not contain any numbers')
+                }
+            }
         }
+        while(wordContainsNumber || !word || word === null)
+        
         wordFormat = prompt('How do you want to format the ' + wordno + ' word ? - uppercase or lowercase or capitalize')
         while(!wordFormat || wordFormat === null || !['uppercase', 'lowercase', 'capitalize'].includes(wordFormat) ){
-            wordFormat = prompt('Please enter uppercase or lowercase or capitalize for' + wordno + ' word')
+            wordFormat = prompt('Please enter uppercase or lowercase or capitalize for ' + wordno + ' word')
         }
         if(wordFormat === 'uppercase'){
             word = word.toLocaleUpperCase();
