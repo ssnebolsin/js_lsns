@@ -9,50 +9,37 @@
     
 </body>
 <script>
- let userInput = confirm('Tell me three most important words')
- let word
- let wordFormat
- let msgString = ''
 
- const WORDRE = /^[a-zA-Z]+$/;
+let userInputString = prompt('Please enter your first name and last name with Latin letters')
+let userInputId = +prompt('Please enter ID - whole number value 1 or 2 or 3 or 4')
 
- if (userInput) {
-    for(i=0; i < 3; i++){
-        let wordno
-            if(i==0){
-                wordno = 'first'
-            }
-            else if(i==1){
-                wordno = 'second'
-            } 
-            else {
-                wordno = 'third'
-            }
+function getRandomIntInclusive(min, max) {
+min = Math.ceil(min);
+max = Math.floor(max);
+return Math.floor(Math.random() * (max - min + 1) + min);
 
-        word = prompt('Tell me ' + wordno + ' word')
-        while(!word || word === null || !word.match(WORDRE)){
-            word = prompt('Tell me ' + wordno + ' word, it should not be empty and should not contain any numbers')
-        }
-        wordFormat = prompt('How do you want to format the ' + wordno + ' word ? - uppercase or lowercase or capitalize')
-        while(!wordFormat || wordFormat === null || !['uppercase', 'lowercase', 'capitalize'].includes(wordFormat) ){
-            wordFormat = prompt('Please enter uppercase or lowercase or capitalize for' + wordno + ' word')
-        }
-        if(wordFormat === 'uppercase'){
-            word = word.toLocaleUpperCase();
-        }
-        else if(wordFormat === 'lowercase'){
-            word = word.toLowerCase();
-        }
-        else if(wordFormat === 'capitalize'){
-            word = word.charAt(0).toUpperCase() + word.slice(1);
-        }
+}
 
-        msgString = msgString + word + ' ';
+if (userInputId !==4){
+    let userInputSymbolIndex = +prompt(`To identify symbol index, Please enter a number from 0 to ${userInputString.length}`)
+    let symbolValue = userInputString.charAt(userInputSymbolIndex)
+    let symbolShowValue
+    userInputString.charAt(userInputSymbolIndex) === ' ' ? symbolShowValue = 'space' : symbolShowValue = userInputString.charAt(userInputSymbolIndex)
+    if(userInputId === 1){
+        console.log(`Unicode value of index ${userInputSymbolIndex}, symbol ${symbolShowValue} is ${userInputString.charCodeAt(userInputSymbolIndex)}`)
     }
-    console.log(msgString.trim() + '!');
- }
-
-
+    else if(userInputId === 2){
+        console.log(`A new string without value of index ${userInputSymbolIndex} is ${userInputString.replace(symbolValue,'')}`)
+    }
+    else if(userInputId === 3){
+        let smilesString = ['\u{1F600}', '\u{1F603}', '\u{1F601}', '\u{1F606}', '\u{1F605}', '\u{1F923}', '\u{1F643}', '\u{1F92A}', '\u{1F920}', '\u{1F913}'];
+        let randIndex = getRandomIntInclusive(0, 9)
+        console.log(`A new string with replaced value of index ${userInputSymbolIndex} to random smiley is ${userInputString.replace(symbolValue,smilesString[randIndex])}`)
+    }
+}
+else if(userInputId===4){
+    console.log(`Number of letters without spaces is ${userInputString.replace(' ', '').length}`)
+}
 
 </script>
 </html>
