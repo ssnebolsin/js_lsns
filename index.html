@@ -21,7 +21,7 @@ return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 if (userInputId !==4){
-    let userInputSymbolIndex = +prompt(`To identify symbol index, Please enter a number from 0 to ${userInputString.length}`)
+    let userInputSymbolIndex = +prompt(`To identify symbol index, Please enter a number from 0 to ${userInputString.length - 1}`)
     let symbolValue = userInputString.charAt(userInputSymbolIndex)
     let symbolShowValue
     userInputString.charAt(userInputSymbolIndex) === ' ' ? symbolShowValue = 'space' : symbolShowValue = userInputString.charAt(userInputSymbolIndex)
@@ -29,15 +29,15 @@ if (userInputId !==4){
         console.log(`Unicode value of index ${userInputSymbolIndex}, symbol ${symbolShowValue} is ${userInputString.charCodeAt(userInputSymbolIndex)}`)
     }
     else if(userInputId === 2){
-        console.log(`A new string without value of index ${userInputSymbolIndex} is ${userInputString.replace(symbolValue,'')}`)
+        console.log(`A new string without value of index ${userInputSymbolIndex}, symbol ${symbolShowValue} is ${userInputString.replace(symbolValue,'')}`)
     }
     else if(userInputId === 3){
         let smilesString = ['\u{1F600}', '\u{1F603}', '\u{1F601}', '\u{1F606}', '\u{1F605}', '\u{1F923}', '\u{1F643}', '\u{1F92A}', '\u{1F920}', '\u{1F913}'];
         let randIndex = getRandomIntInclusive(0, 9)
-        console.log(`A new string with replaced value of index ${userInputSymbolIndex} to random smiley is ${userInputString.replace(symbolValue,smilesString[randIndex])}`)
+        console.log(`A new string with replaced value of index ${userInputSymbolIndex}, symbol ${symbolShowValue} to random smiley is ${userInputString.replace(symbolValue,smilesString[randIndex])}`)
     }
 }
-else if(userInputId===4){
+else {
     console.log(`Number of letters without spaces is ${userInputString.replace(' ', '').length}`)
 }
 
